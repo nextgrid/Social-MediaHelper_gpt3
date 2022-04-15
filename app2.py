@@ -8,8 +8,6 @@ def app():
     # Creating an object of prediction service
     pred = Summarize()
 
-    passwordInput = st.sidebar.text_input("Password", type="password")
-    password = pw_api.password
     api_key = st.sidebar.text_input("APIkey", type="password")
     # Using the streamlit cache
     @st.cache
