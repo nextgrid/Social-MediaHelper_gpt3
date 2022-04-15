@@ -3,6 +3,7 @@ from prompts.qa_prompt import qaPrompt
 from prompts.explain_prompt import explainPrompt
 from prompts.notes_prompt import notesPrompt
 from prompts.longtext_prompt import extendPrompt
+from prompts.twitter import twitterPrompt
 from const import API_KEY
 import openai
 
@@ -10,6 +11,7 @@ import openai
 def set_openai_key(key):
     """Sets OpenAI key."""
     openai.api_key = key
+
 
 
 class Summarize:
@@ -209,4 +211,41 @@ class Extend:
         output = self.query(extendPrompt.format(input))
         return output
 
+class Twitter:
+    def __init__(self):
+        print("Model Intilization--->")
+        # set_openai_key(API_KEY)
 
+    def query(self, prompt, myKwargs={}):
+        """
+        wrapper for the API to save the prompt and the result
+        """
+
+        # arguments to send the API
+        kwargs = {
+            "engine": "text-davinci-002",
+            "temperature": 0.70,
+            "max_tokens": 500,
+            "best_of": 1,
+            "top_p": 1,
+            "frequency_penalty": 0,
+            "presence_penalty": 0,
+            "stop": ["###"],
+        }
+
+        for kwarg in myKwargs:
+            kwargs[kwarg] = myKwargs[kwarg]
+
+        r = openai.Completion.create(prompt=prompt, **kwargs)["choices"][0][
+            "text"
+        ].strip()
+        return r
+
+    def model_prediction(self, input, api_key):
+        """
+        wrapper for the API to save the prompt and the result
+        """
+        # Setting the OpenAI API key got from the OpenAI dashboard
+        set_openai_key(api_key)
+        output = self.query(twitterPrompt.format(input))
+        return output

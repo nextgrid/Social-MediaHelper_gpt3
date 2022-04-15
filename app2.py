@@ -1,12 +1,13 @@
+from tkinter import Label
 import streamlit as st
-from model_training_service import Summarize
+from model_training_service import Twitter
 import pw_api
 
 
 def app():
 
     # Creating an object of prediction service
-    pred = Summarize()
+    pred = Twitter()
 
     api_key = st.sidebar.text_input("APIkey", type="password")
     # Using the streamlit cache

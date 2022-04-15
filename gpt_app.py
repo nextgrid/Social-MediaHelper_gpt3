@@ -7,7 +7,8 @@ st.set_page_config(page_title="NewNative", page_icon="🟢", layout="centered")
 # Pages as key-value pairs
 PAGES = {
     "Dashboard": app1,
-    "Summarization": app2,
+    "Twitter": app2,
+    
     # "GPT-3 Sandbox": app3,
 }
 
