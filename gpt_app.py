@@ -1,13 +1,13 @@
-import welcomeMessage
-import appTwitter
+import app1
+import app2
 import streamlit as st
 
 st.set_page_config(page_title="NewNative", page_icon="🟢", layout="centered")
 
 # Pages as key-value pairs
 PAGES = {
-    "Dashboard": welcomeMessage,
-    "Twitter": appTwitter,
+    "Dashboard": app1,
+    "Twitter": app2,
     
     # "GPT-3 Sandbox": app3,
 }
