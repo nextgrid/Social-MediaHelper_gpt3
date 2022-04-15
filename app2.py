@@ -17,7 +17,7 @@ def app():
 
         return pred.model_prediction(input=input.strip(), api_key=api_key)
 
-    if passwordInput == password:
+    if api_key:
 
         # Setting up the Title
         st.title("Summarize Text")
