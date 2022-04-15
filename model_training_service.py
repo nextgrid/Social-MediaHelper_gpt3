@@ -28,7 +28,7 @@ class Twitter:
         kwargs = {
             "engine": "text-davinci-002",
             "temperature": 0.70,
-            "max_tokens": 500,
+            "max_tokens": 32,
             "best_of": 1,
             "top_p": 1,
             "frequency_penalty": 0,

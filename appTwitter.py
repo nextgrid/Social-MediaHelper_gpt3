@@ -19,7 +19,7 @@ def app():
     if api_key:
 
         # Setting up the Title
-        st.title("Summarize Text")
+        st.title("Create a twitter post")
 
         # st.write("---")
 
