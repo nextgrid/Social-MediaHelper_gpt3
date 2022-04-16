@@ -28,7 +28,7 @@ class Twitter:
         kwargs = {
             "engine": "text-davinci-002",
             "temperature": 0.70,
-            "max_tokens": 32,
+            "max_tokens": 45,
             "best_of": 1,
             "top_p": 1,
             "frequency_penalty": 0,
@@ -44,13 +44,13 @@ class Twitter:
         ].strip()
         return r
 
-    def model_prediction(self, input, api_key):
+    def model_prediction(self, input, targetAge, country, api_key):
         """
         wrapper for the API to save the prompt and the result
         """
         # Setting the OpenAI API key got from the OpenAI dashboard
         set_openai_key(api_key)
-        output = self.query(twitterPrompt.format(input))
+        output = self.query(twitterPrompt.format(input = input, targetAge=targetAge, country=country))
         return output
 
 

@@ -1,3 +1,5 @@
+`streamlit run gpt_app.py`
+
 <h2 align="center"> 🕹️ GPT-3 Sandbox </h2>
 
 <h3 align="center">🧠 Powered by <ins>Kairos Data Labs</ins><sup><a  href="https://www.linkedin.com/company/kairos-data-labs">[?]</a></sup> </h3>
@@ -74,3 +76,5 @@ For your reference we have created an array of applications to take inspiration 
 
 * [GPT-3 Applications](https://shubhamsaboo111.medium.com/) 
 * [Video Tutorials/examples](https://www.youtube.com/channel/UCjG6QzmabZrBEeGh3vi-wDQ)
+
+`.\venv\Scripts\activate`
