@@ -1,8 +1,8 @@
 # Format of training prompt
-twitterPrompt = """Write a social media post from this Content for twitter that will engage the reader into conversation in maximum 140 characters: 
+twitterPrompt = """Write a social media post for Twitter platform from this Content that will engage the {targetAge} years old reader into conversation in {country}: 
 ---
 Content start:
-{}
+{input}
 Content end:
 ---
 This is the social media post: """
