@@ -2,7 +2,6 @@ from tkinter import Label
 import streamlit as st
 from model_training_service import Twitter
 import pw_api
-import countries
 
 
 def app():
@@ -15,7 +14,7 @@ def app():
     @st.cache
     def process_prompt(input):
 
-        return pred.model_prediction(input=input.strip(), targetAge=targetAge, country=country, api_key=api_key)
+        return pred.model_prediction(input=input.strip(), api_key=api_key)
 
     if api_key:
 
@@ -31,12 +30,6 @@ def app():
             max_chars=10000,
             height=330,
         )
-        targetAge = st.number_input(
-            label = "Target age",
-            min_value=14,
-            max_value=100
-        )
-        country = st.selectbox('Target Country',(countries.countries))
 
         if st.button("Submit"):
             with st.spinner(text="In progress"):
