@@ -1,6 +1,6 @@
 from tkinter import Label
 import streamlit as st
-from model_training_service import Twitter
+from model_training_service import Title
 import pw_api
 import countries
 
@@ -8,19 +8,19 @@ import countries
 def app():
 
     # Creating an object of prediction service
-    pred = Twitter()
+    pred = Title()
 
     api_key = st.sidebar.text_input("APIkey", type="password")
     # Using the streamlit cache
     @st.cache
     def process_prompt(input):
 
-        return pred.model_prediction(input=input.strip(), targetAge=targetAge, country=country, api_key=api_key)
+        return pred.model_prediction(input=input.strip(), api_key=api_key)
 
     if api_key:
 
         # Setting up the Title
-        st.title("Create a twitter post")
+        st.title("Create a title")
 
         # st.write("---")
 
@@ -31,12 +31,6 @@ def app():
             max_chars=10000,
             height=330,
         )
-        targetAge = st.number_input(
-            label = "Target age",
-            min_value=14,
-            max_value=100
-        )
-        country = st.selectbox('Target Country',(countries.countries))
 
         if st.button("Submit"):
             with st.spinner(text="In progress"):
