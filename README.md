@@ -1,4 +1,5 @@
 `streamlit run gpt_app.py`
+` ./venv/Scripts/activate`
 
 <h2 align="center"> 🕹️ GPT-3 Sandbox </h2>
 

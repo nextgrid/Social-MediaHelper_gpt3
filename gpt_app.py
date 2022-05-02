@@ -1,31 +1,9 @@
-import welcomeMessage
-import Twitter
-import Facebook
-import Instagram
-import Linkedin
-import Hashtags
-import Title
+import Main
 import streamlit as st
 
-st.set_page_config(page_title="NewNative", page_icon="🟢", layout="centered")
+st.set_page_config(page_title="Social Media Helper", page_icon=":shark:", layout="wide", menu_items={
+         'Report a bug': "https://github.com/nextgrid/Social-MediaHelper_gpt3/issues",
+         'About': "## This is a social media post generator, made by NewNative https://github.com/nextgrid/Social-MediaHelper_gpt3"
+     })
 
-# Pages as key-value pairs
-PAGES = {
-    "Dashboard": welcomeMessage,
-    "Twitter": Twitter,
-    "Facebook": Facebook,
-    "Instagram": Instagram,
-    "Linkedin": Linkedin,
-    "Hashtags": Hashtags,
-    "Title": Title,
-    
-    # "GPT-3 Sandbox": app3,
-}
-
-st.sidebar.title("Navigation:")
-
-selection = st.sidebar.radio("", list(PAGES.keys()))
-
-page = PAGES[selection]
-
-page.app()
+Main.app()
