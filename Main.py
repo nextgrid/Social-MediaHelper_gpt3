@@ -18,7 +18,7 @@ def app():
     if api_key:
 
         # Setting up the Title
-        st.title("Create a social media post")
+        st.title("Create a social media post-{social_media_platform} from below text".format(social_media_platform=social_media_platform))
 
         # st.write("---")
 
