@@ -1,25 +1,24 @@
-from tkinter import Label
 import streamlit as st
-from model_training_service import Twitter
-import pw_api
+from model_training_service import Facebook
 
 
 def app():
 
     # Creating an object of prediction service
-    pred = Twitter()
+    pred = Facebook()
 
     api_key = st.sidebar.text_input("APIkey", type="password")
+    social_media_platform = st.sidebar.selectbox("Select a social media platform/type", ["facebook", "twitter", "instagram", "linkedin", "hashtags", "title"])
     # Using the streamlit cache
     @st.cache
     def process_prompt(input):
 
-        return pred.model_prediction(input=input.strip(), api_key=api_key)
+        return pred.model_prediction(input=input.strip(),social_media_platform=social_media_platform , api_key=api_key)
 
     if api_key:
 
         # Setting up the Title
-        st.title("Summarize Text")
+        st.title("Create a social media post")
 
         # st.write("---")
 
@@ -36,4 +35,4 @@ def app():
                 report_text = process_prompt(input)
                 st.markdown(report_text)
     else:
-        st.error("🔑 Password not found")
+        st.error("🔑 Please enter API Key")
