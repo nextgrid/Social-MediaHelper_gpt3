@@ -1,14 +1,32 @@
 import streamlit as st
 from model_training_service import GeneralModel
 from PIL import Image
+import pyperclip
 
-image = Image.open('newnative-clean.png')
+image = Image.open('New_Native.png')
+def copy (input):
+    pyperclip.copy(input)
+
+if 'summary' not in st.session_state:
+    st.session_state['summary'] = ""
+if 'question' not in st.session_state:
+    st.session_state['question'] = ""
+if 'hashtags' not in st.session_state:
+    st.session_state['hashtags'] = ""
+if 'title' not in st.session_state:
+    st.session_state['title'] = ""
+if 'APIkey' not in st.session_state:
+    st.session_state['APIkey'] = ""
+    
 def app():
 
     # Creating an object of prediction service
     pred = GeneralModel()
-
-    api_key = st.sidebar.text_input("APIkey", type="password")
+    if st.session_state['APIkey'] == "":
+        api_key = st.sidebar.text_input("APIkey", type="password")
+        st.session_state['APIkey'] = api_key
+    else:
+        api_key = st.session_state['APIkey']
     social_media_platform = st.sidebar.selectbox("Select a social media platform/type", ["facebook", "twitter", "instagram", "linkedin"])
     # Using the streamlit cache
     @st.cache
@@ -32,16 +50,31 @@ def app():
             height=250,
         )
 
+
+        
+
         if st.button("Submit"):
             with st.spinner(text="In progress"):
                 report_text = process_prompt(input)
-                st.subheader('This is a summary')
-                st.markdown(report_text['outputMain'])
-                st.subheader('Engaging Question')
-                st.markdown(report_text['outputEngaging'])
-                st.subheader('Hashtags')
-                st.markdown(report_text['outputHashtags'])
-                st.subheader('Title')
-                st.markdown(report_text['outputTitle'])
+                st.session_state['summary'] = report_text['outputMain']
+                st.session_state['question'] = report_text['outputEngaging']
+                st.session_state['hashtags'] = report_text['outputHashtags']
+                st.session_state['title'] = report_text['outputTitle']
+
+        if st.session_state['summary']:
+            st.subheader("Summary")
+            st.write(st.session_state['summary'])
+        if st.session_state['question']:
+            st.subheader("Engaging question")
+            st.write(st.session_state['question'])
+        if st.session_state['hashtags']:
+            st.subheader("Hashtags")
+            st.write(st.session_state['hashtags'])
+        if st.session_state['title']:
+            st.subheader("Title")
+            st.write(st.session_state['title'])
+            
+
+        st.session_state
     else:
         st.error("🔑 Please enter API Key")
