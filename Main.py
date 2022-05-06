@@ -1,14 +1,15 @@
 import streamlit as st
-from model_training_service import Facebook
+from model_training_service import GeneralModel
+from PIL import Image
 
-
+image = Image.open('newnative-clean.png')
 def app():
 
     # Creating an object of prediction service
-    pred = Facebook()
+    pred = GeneralModel()
 
     api_key = st.sidebar.text_input("APIkey", type="password")
-    social_media_platform = st.sidebar.selectbox("Select a social media platform/type", ["facebook", "twitter", "instagram", "linkedin", "hashtags", "title"])
+    social_media_platform = st.sidebar.selectbox("Select a social media platform/type", ["facebook", "twitter", "instagram", "linkedin"])
     # Using the streamlit cache
     @st.cache
     def process_prompt(input):
@@ -18,6 +19,7 @@ def app():
     if api_key:
 
         # Setting up the Title
+        st.image(image)
         st.title("Create a social media post-{social_media_platform} from below text".format(social_media_platform=social_media_platform))
 
         # st.write("---")
@@ -27,12 +29,19 @@ def app():
             "Use the example below or input your own text in English (between 1,000 and 10,000 characters)",
             value=s_example,
             max_chars=10000,
-            height=330,
+            height=250,
         )
 
         if st.button("Submit"):
             with st.spinner(text="In progress"):
                 report_text = process_prompt(input)
-                st.markdown(report_text)
+                st.subheader('This is a summary')
+                st.markdown(report_text['outputMain'])
+                st.subheader('Engaging Question')
+                st.markdown(report_text['outputEngaging'])
+                st.subheader('Hashtags')
+                st.markdown(report_text['outputHashtags'])
+                st.subheader('Title')
+                st.markdown(report_text['outputTitle'])
     else:
         st.error("🔑 Please enter API Key")

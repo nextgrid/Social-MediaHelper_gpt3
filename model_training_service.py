@@ -4,6 +4,7 @@ from prompts.linkedin import linkedinPrompt
 from prompts.instagram import instagramPrompt
 from prompts.hashtags import hashtagsPrompt
 from prompts.title import titlePrompt
+from prompts.engagingQuestion import engagingPrompt
 import openai
 
 
@@ -39,19 +40,15 @@ def platform_prompt(platform):
         return linkedinPrompt
     elif "instagram" in platform:
         return instagramPrompt
-    elif "hashtags" in platform:
-        return hashtagsPrompt
-    elif "title" in platform:
-        return titlePrompt
     else:
         return "Something's wrong with the internet"
 
-class Facebook:
+class GeneralModel:
     def __init__(self):
         print("Model Intilization--->")
         # set_openai_key(API_KEY)
 
-    def query(self, prompt,social_media_platform, myKwargs={}):
+    def query(self, prompt, myKwargs={}):
         """
         wrapper for the API to save the prompt and the result
         """
@@ -59,7 +56,7 @@ class Facebook:
         # arguments to send the API
         kwargs = {
             "engine": "text-davinci-002",
-            "temperature": 1,
+            "temperature": 0.70,
             "max_tokens": 2500,
             "best_of": 1,
             "top_p": 1,
@@ -69,7 +66,6 @@ class Facebook:
         }
 
         #print out target length
-        print("Target Length: ", social_media_platform)
 
         for kwarg in myKwargs:
             kwargs[kwarg] = myKwargs[kwarg]
@@ -82,7 +78,7 @@ class Facebook:
         ].strip()
         return r
 
-    def model_prediction(self, input, social_media_platform, api_key):
+    def model_prediction_subprocess(self, input, social_media_platform, api_key):
         """
         wrapper for the API to save the prompt and the result
         """
@@ -90,6 +86,20 @@ class Facebook:
         # Setting the OpenAI API key got from the OpenAI dashboard
         set_openai_key(api_key)
         output = self.query(promptText.format(input = input), social_media_platform)
+        return output
+
+    def model_prediction(self, input, social_media_platform, api_key):
+        """
+        wrapper for the API to save the prompt and the result
+        """
+        promptText = platform_prompt(social_media_platform)
+        # Setting the OpenAI API key got from the OpenAI dashboard
+        set_openai_key(api_key)
+        output = dict()
+        output['outputMain'] = self.query(promptText.format(input = input))
+        output['outputEngaging'] = self.query(engagingPrompt.format(input = input))
+        output['outputHashtags'] = self.query(hashtagsPrompt.format(input = input))
+        output['outputTitle'] = self.query(titlePrompt.format(input = input))
         return output
 
 
