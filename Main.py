@@ -5,21 +5,22 @@ import pyperclip
 
 image = Image.open('New_Native.png')
 
-def copy (input):
-    pyperclip.copy(input)
-
-if 'summary' not in st.session_state:
-    st.session_state['summary'] = ""
-if 'question' not in st.session_state:
-    st.session_state['question'] = ""
-if 'hashtags' not in st.session_state:
-    st.session_state['hashtags'] = ""
-if 'title' not in st.session_state:
-    st.session_state['title'] = ""
-if 'APIkey' not in st.session_state:
-    st.session_state['APIkey'] = ""
     
 def app():
+
+    def copy (input):
+        pyperclip.copy(input)
+
+    if 'summary' not in st.session_state:
+        st.session_state['summary'] = ""
+    if 'question' not in st.session_state:
+        st.session_state['question'] = ""
+    if 'hashtags' not in st.session_state:
+        st.session_state['hashtags'] = ""
+    if 'title' not in st.session_state:
+        st.session_state['title'] = ""
+    if 'APIkey' not in st.session_state:
+        st.session_state['APIkey'] = ""
 
     # Creating an object of prediction service
     pred = GeneralModel()
@@ -28,6 +29,7 @@ def app():
         st.session_state['APIkey'] = api_key
     else:
         api_key = st.session_state['APIkey']
+
     social_media_platform = st.sidebar.selectbox("Select a social media platform/type", ["facebook", "twitter", "instagram", "linkedin"])
     # Using the streamlit cache
     @st.cache
