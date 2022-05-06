@@ -1,2 +1,2 @@
 libtk8.6
-pyperclip
+pyperclip1.8.2
