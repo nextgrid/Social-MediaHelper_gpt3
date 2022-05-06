@@ -4,6 +4,7 @@ from PIL import Image
 import pyperclip
 
 image = Image.open('New_Native.png')
+
 def copy (input):
     pyperclip.copy(input)
 
