@@ -20,7 +20,6 @@ class PDF(FPDF):
         self.set_font_size(size=font_size)
 
         # fpdf uses latin-1 so we have to encode out txt into it, to prevent errors
-        # txt = bytes(txt, 'utf-8').decode('latin-1')
         self.multi_cell(
             200, 10, txt=txt, align='L', new_x="LEFT"
         )
