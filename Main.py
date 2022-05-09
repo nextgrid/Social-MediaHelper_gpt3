@@ -61,7 +61,8 @@ def app(logo=nn_logo):
             height=250,
         )
 
-        if st.button('Submit'):
+        btn_submit = st.button('Submit', key='btn_submit')
+        if btn_submit:
             with st.spinner(text='In progress'):
                 report_text = process_prompt(inp)
                 st.session_state['summary'] = report_text['output_main']
@@ -85,6 +86,14 @@ def app(logo=nn_logo):
             st.subheader('Title')
             st.write(st.session_state['title'])
 
+        btn_email = False
+        if st.session_state['summary'] and st.session_state['title']:
+            st.subheader('If you like our answer, send it to e-mail')
+            btn_email = st.button('Send to e-mail', key='btn_email')
+
+        if btn_email:
+            pass
+        
     else:
         st.error('🔑 Please enter API Key')
 
