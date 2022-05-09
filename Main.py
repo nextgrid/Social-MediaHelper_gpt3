@@ -1,6 +1,7 @@
 import os
 import pyperclip
 import streamlit as st
+from pdf import PDF
 from PIL import Image
 from model_training_service import GeneralModel
 
@@ -25,6 +26,12 @@ def app(logo=nn_logo):
 
     if 'APIkey' not in st.session_state:
         st.session_state['APIkey'] = ''
+
+    if 'was_btn_email_clicked' not in st.session_state:
+        st.session_state['was_btn_email_clicked'] = False
+
+    # Create PDF printer
+    pdf_printer = PDF()
 
     # Creating an object of prediction service
     pred = GeneralModel()
@@ -86,13 +93,24 @@ def app(logo=nn_logo):
             st.subheader('Title')
             st.write(st.session_state['title'])
 
-        btn_email = False
-        if st.session_state['summary'] and st.session_state['title']:
+        if st.session_state['summary'] and st.session_state['title'] and not st.session_state['was_btn_email_clicked']:
             st.subheader('If you like our answer, send it to e-mail')
-            btn_email = st.button('Send to e-mail', key='btn_email')
+            btn_mail = st.empty()
+            st.session_state['was_btn_email_clicked'] = btn_mail.button('Send to e-mail', key='btn_email')
 
-        if btn_email:
-            pass
+
+        if st.session_state['was_btn_email_clicked']:            
+            btn_mail.empty()
+
+            #  We need filename to read file -> send it with email -> delete it
+            filename = pdf_printer(
+                title=st.session_state['title'],
+                content=st.session_state['summary'], 
+                question=st.session_state['question'], 
+                hashtags=st.session_state['hashtags']
+            )
+
+            st.markdown('Success!')
         
     else:
         st.error('🔑 Please enter API Key')
