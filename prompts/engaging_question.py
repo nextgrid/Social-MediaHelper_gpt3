@@ -1,5 +1,5 @@
 # Format of training prompt
-engagingPrompt = """Write an engaging question for this content:
+engaging_prompt = """Write an engaging question for this content:
 ---
 Content start
 {input}
