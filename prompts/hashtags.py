@@ -1,5 +1,5 @@
 # Format of training prompt
-hashtagsPrompt = """Write 3 hashtags for this content: 
+hashtags_prompt = """Write 3 hashtags for this content: 
 ---
 Content start
 {input}

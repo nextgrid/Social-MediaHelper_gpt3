@@ -1,5 +1,5 @@
 # Format of training prompt
-titlePrompt = """Write a short title for this content: 
+title_prompt = """Write a short title for this content: 
 ---
 Content start
 {input}
